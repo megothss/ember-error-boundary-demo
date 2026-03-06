@@ -12,6 +12,8 @@ import EachInsertDemo from 'error-boundary-demo/components/each-insert-demo';
 import NotCaughtDemo from 'error-boundary-demo/components/not-caught-demo';
 import RerenderDemo from 'error-boundary-demo/components/rerender-demo';
 import RetryDemo from 'error-boundary-demo/components/retry-demo';
+import SilentErrorDemo from 'error-boundary-demo/components/silent-error-demo';
+import ErrorBlockThrowsDemo from 'error-boundary-demo/components/error-block-throws-demo';
 
 const explodingHelper = helper(() => {
   throw new Error('Helper exploded!');
@@ -27,6 +29,8 @@ const DEMOS = [
   { id: 6, num: '7', label: 'Controller Route', route: 'controller-error' },
   { id: 7, num: '8', label: 'Layout + Outlet', route: 'outlet-layout.child' },
   { id: 8, num: '9', label: 'Not Caught' },
+  { id: 9, num: '10', label: 'Silent Error' },
+  { id: 10, num: '11', label: 'Error Block Throws' },
 ];
 
 class App extends Component {
@@ -262,6 +266,20 @@ class App extends Component {
             @description="ErrorBoundary only catches synchronous errors during render. Modifier install errors and async errors (setTimeout, Promises) escape the boundary."
           >
             <NotCaughtDemo />
+          </DemoSection>
+        {{else if (this.isActive 9)}}
+          <DemoSection
+            @title="10. Silent Error Handling"
+            @description="An ErrorBoundary with no error block silently catches errors. The errored subtree is removed from the DOM but the rest of the page stays intact."
+          >
+            <SilentErrorDemo />
+          </DemoSection>
+        {{else if (this.isActive 10)}}
+          <DemoSection
+            @title="11. Error Block Throws"
+            @description="When the error block itself throws, the error bubbles up to the nearest parent ErrorBoundary."
+          >
+            <ErrorBlockThrowsDemo />
           </DemoSection>
         {{/if}}
         {{/unless}}
