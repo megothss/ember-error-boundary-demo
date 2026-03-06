@@ -76,9 +76,13 @@ class App extends Component {
           <h1>ErrorBoundary Demo</h1>
           <span class="subtitle">ember-source 6.12.0-alpha.1</span>
         </div>
-        <button class="theme-toggle" type="button" {{on "click" this.toggleTheme}}>
-          {{if this.isDark "Light" "Dark"}}
-        </button>
+        <div class="header-right">
+          <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">PR</a>
+          <a class="header-link" href="https://github.com/megothss/ember-error-boundary-demo" target="_blank" rel="noopener noreferrer">Source</a>
+          <button class="theme-toggle" type="button" {{on "click" this.toggleTheme}}>
+            {{if this.isDark "Light" "Dark"}}
+          </button>
+        </div>
       </header>
 
       <nav class="sidebar">
