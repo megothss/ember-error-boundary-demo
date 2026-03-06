@@ -81,11 +81,9 @@ class App extends Component {
           <span class="subtitle">ember-source 6.12.0-alpha.1</span>
         </div>
         <div class="header-right">
+          <a class="header-link" href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md" target="_blank" rel="noopener noreferrer">RFC</a>
           <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">PR</a>
           <a class="header-link" href="https://github.com/megothss/ember-error-boundary-demo" target="_blank" rel="noopener noreferrer">Source</a>
-          <button class="theme-toggle" type="button" {{on "click" this.toggleTheme}}>
-            {{if this.isDark "Light" "Dark"}}
-          </button>
         </div>
       </header>
 
@@ -101,6 +99,9 @@ class App extends Component {
             <span class="sidebar-item-label">{{demo.label}}</span>
           </button>
         {{/each}}
+        <button class="theme-toggle" type="button" {{on "click" this.toggleTheme}}>
+          {{if this.isDark "☀️ Light" "🌙 Dark"}}
+        </button>
       </nav>
 
       <main class="content-area">

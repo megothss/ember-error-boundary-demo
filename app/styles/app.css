@@ -240,6 +240,12 @@ body {
   border-right: 1px solid var(--border-color);
   overflow-y: auto;
   padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .theme-toggle {
+  margin-top: auto;
 }
 
 .sidebar-label {
