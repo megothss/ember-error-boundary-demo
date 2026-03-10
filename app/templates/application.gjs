@@ -14,6 +14,8 @@ import RerenderDemo from 'error-boundary-demo/components/rerender-demo';
 import RetryDemo from 'error-boundary-demo/components/retry-demo';
 import SilentErrorDemo from 'error-boundary-demo/components/silent-error-demo';
 import ErrorBlockThrowsDemo from 'error-boundary-demo/components/error-block-throws-demo';
+import SiblingUpdateDemo from 'error-boundary-demo/components/sibling-update-demo';
+import InElementDemo from 'error-boundary-demo/components/in-element-demo';
 
 const explodingHelper = helper(() => {
   throw new Error('Helper exploded!');
@@ -31,6 +33,8 @@ const DEMOS = [
   { id: 8, num: '9', label: 'Not Caught' },
   { id: 9, num: '10', label: 'Silent Error' },
   { id: 10, num: '11', label: 'Error Block Throws' },
+  { id: 11, num: '12', label: 'Sibling Update' },
+  { id: 12, num: '13', label: 'In-Element Portal' },
 ];
 
 class App extends Component {
@@ -281,6 +285,20 @@ class App extends Component {
             @description="When the error block itself throws, the error bubbles up to the nearest parent ErrorBoundary."
           >
             <ErrorBlockThrowsDemo />
+          </DemoSection>
+        {{else if (this.isActive 11)}}
+          <DemoSection
+            @title="12. Sibling Update After Boundary"
+            @description="Content rendered after an ErrorBoundary with tracked state updates. Proves the block stack stays balanced — without the fix, toggling the sibling's state crashes the app."
+          >
+            <SiblingUpdateDemo />
+          </DemoSection>
+        {{else if (this.isActive 12)}}
+          <DemoSection
+            @title="13. In-Element Portal"
+            @description="ErrorBoundary wrapping content rendered into a remote element via in-element. The boundary catches errors without leaking DOM into the portal target."
+          >
+            <InElementDemo />
           </DemoSection>
         {{/if}}
         {{/unless}}

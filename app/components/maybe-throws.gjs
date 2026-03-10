@@ -5,7 +5,7 @@ export default class MaybeThrows extends Component {
     if (this.args.shouldThrow) {
       throw new Error('Boom! Tracked state caused a render error.');
     }
-    return 'Rendered successfully';
+    return this.args.successMessage || 'Rendered successfully';
   }
 
   <template>

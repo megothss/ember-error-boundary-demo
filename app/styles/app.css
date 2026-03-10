@@ -540,6 +540,65 @@ button:disabled {
   color: var(--text-secondary);
 }
 
+/* ===== In-Element Layout (Scenario 13) ===== */
+.in-element-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.in-element-source,
+.in-element-target {
+  position: relative;
+  padding: 1rem;
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  min-height: 80px;
+}
+
+.in-element-target {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.in-element-section + .in-element-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.in-element-target .existing-content {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-content);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+}
+
+h4.sub {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.in-element-layout .label {
+  position: absolute;
+  top: -0.6rem;
+  left: 0.75rem;
+  background: var(--bg-card);
+  padding: 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .app-layout {
