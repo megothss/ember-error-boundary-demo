@@ -194,6 +194,15 @@ body {
   align-items: baseline;
 }
 
+.header-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header-title-link:hover {
+  opacity: 0.8;
+}
+
 .header-right {
   display: flex;
   align-items: center;

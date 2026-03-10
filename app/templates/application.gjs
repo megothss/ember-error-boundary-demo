@@ -34,13 +34,15 @@ class App extends Component {
     <div class="app-layout">
       <header class="app-header">
         <div class="header-left">
-          <h1>ErrorBoundary Demo</h1>
+          <LinkTo @route="index" class="header-title-link">
+            <h1>ErrorBoundary Demo</h1>
+          </LinkTo>
           <span class="subtitle">ember-source 6.12.0-alpha.1</span>
         </div>
         <div class="header-right">
-          <a class="header-link" href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md" target="_blank" rel="noopener noreferrer">RFC</a>
-          <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">PR</a>
-          <a class="header-link" href="https://github.com/megothss/ember-error-boundary-demo" target="_blank" rel="noopener noreferrer">Source</a>
+          <a class="header-link" href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md" target="_blank" rel="noopener noreferrer">Draft RFC</a>
+          <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">Fork PR</a>
+          <a class="header-link" href="https://github.com/megothss/ember-error-boundary-demo" target="_blank" rel="noopener noreferrer">Demo Source</a>
         </div>
       </header>
 
