@@ -355,6 +355,50 @@ body {
   margin-top: 0;
 }
 
+/* ===== Homepage ===== */
+.homepage {
+  max-width: 560px;
+}
+
+.homepage-banner {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--error-text);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  margin-bottom: 1.25rem;
+}
+
+.homepage-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+}
+
+.homepage-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.homepage-cta {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  padding: 0.6rem 1rem;
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+}
+
 /* ===== Error Box ===== */
 .error-box {
   background: var(--error-bg);
