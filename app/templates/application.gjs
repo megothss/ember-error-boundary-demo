@@ -42,7 +42,6 @@ class App extends Component {
         <div class="header-right">
           <a class="header-link" href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md" target="_blank" rel="noopener noreferrer">Draft RFC</a>
           <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">Fork PR</a>
-          <a class="header-link" href="https://github.com/megothss/ember-error-boundary-demo" target="_blank" rel="noopener noreferrer">Demo Source</a>
         </div>
       </header>
 

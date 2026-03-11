@@ -1,6 +1,26 @@
 import { ErrorBoundary } from '@ember/component';
 import AlwaysThrows from 'error-boundary-demo/components/always-throws';
 import DemoSection from 'error-boundary-demo/components/demo-section';
+import SourceViewer from 'error-boundary-demo/components/source-viewer';
+
+import selfSource from './nested-boundaries.gjs?raw';
+
+const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
+  <:default>
+    <ErrorBoundary>       {{! Level 2 — unaffected }}
+      <:default>
+        <ErrorBoundary>   {{! Level 3 — catches }}
+          <:default>
+            <AlwaysThrows />
+          </:default>
+          <:error as |err|>
+            Level 3 caught: {{err.message}}
+          </:error>
+        </ErrorBoundary>
+      </:default>
+    </ErrorBoundary>
+  </:default>
+</ErrorBoundary>`;
 
 <template>
   <DemoSection
@@ -44,4 +64,10 @@ import DemoSection from 'error-boundary-demo/components/demo-section';
       </:error>
     </ErrorBoundary>
   </DemoSection>
+
+  <SourceViewer
+    @snippet={{SNIPPET}}
+    @fullSource={{selfSource}}
+    @sourceFile="app/templates/nested-boundaries.gjs"
+  />
 </template>

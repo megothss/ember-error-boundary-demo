@@ -1,4 +1,19 @@
 import { on } from '@ember/modifier';
+import SourceViewer from 'error-boundary-demo/components/source-viewer';
+
+import fullSource from 'error-boundary-demo/controllers/controller-error.js?raw';
+
+const SNIPPET = `{{! The route is wrapped by the app-level ErrorBoundary }}
+{{! in application.gjs using @retryWith: }}
+
+<ErrorBoundary @retryWith={{this.router.currentRouteName}}>
+  <:default>
+    {{outlet}}
+  </:default>
+  <:error as |err|>
+    Route error caught! {{err.message}}
+  </:error>
+</ErrorBoundary>`;
 
 <template>
   <div class="route-content">
@@ -10,4 +25,10 @@ import { on } from '@ember/modifier';
       </button>
     </div>
   </div>
+
+  <SourceViewer
+    @snippet={{SNIPPET}}
+    @fullSource={{fullSource}}
+    @sourceFile="app/controllers/controller-error.js"
+  />
 </template>

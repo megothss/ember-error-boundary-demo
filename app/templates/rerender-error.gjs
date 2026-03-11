@@ -1,5 +1,19 @@
 import DemoSection from 'error-boundary-demo/components/demo-section';
 import RerenderDemo from 'error-boundary-demo/components/rerender-demo';
+import SourceViewer from 'error-boundary-demo/components/source-viewer';
+
+import fullSource from 'error-boundary-demo/components/rerender-demo.gjs?raw';
+
+const SNIPPET = `<ErrorBoundary>
+  <:default>
+    <MaybeThrows @shouldThrow={{this.shouldThrow}} />
+  </:default>
+  <:error as |err|>
+    <div class="error-box">
+      <strong>Caught on rerender!</strong> {{err.message}}
+    </div>
+  </:error>
+</ErrorBoundary>`;
 
 <template>
   <DemoSection
@@ -8,4 +22,10 @@ import RerenderDemo from 'error-boundary-demo/components/rerender-demo';
   >
     <RerenderDemo />
   </DemoSection>
+
+  <SourceViewer
+    @snippet={{SNIPPET}}
+    @fullSource={{fullSource}}
+    @sourceFile="app/components/rerender-demo.gjs"
+  />
 </template>

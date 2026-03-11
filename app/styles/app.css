@@ -705,3 +705,76 @@ h4.sub {
 .content-area::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* ===== Source Viewer ===== */
+.source-viewer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  max-width: 720px;
+}
+
+.source-viewer-heading {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.code-block {
+  background: var(--bg-content);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.code-block code {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  background: none;
+}
+
+/* Override highlight.js theme backgrounds */
+.code-block code.hljs {
+  background: transparent;
+  padding: 0;
+}
+
+.source-viewer-details {
+  margin-top: 0.75rem;
+}
+
+.source-viewer-details summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  user-select: none;
+  padding: 0.35rem 0;
+}
+
+.source-viewer-details summary:hover {
+  color: var(--accent-hover);
+}
+
+.source-viewer-details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+.source-viewer-github-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.source-viewer-github-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
