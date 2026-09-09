@@ -43,7 +43,8 @@ const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
                   </:default>
                   <:error as |err|>
                     <div class="error-box inner">
-                      <strong>Level 3 caught!</strong> {{err.message}}
+                      <strong>Level 3 caught!</strong>
+                      {{err.message}}
                     </div>
                   </:error>
                 </ErrorBoundary>
@@ -51,7 +52,8 @@ const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
             </:default>
             <:error as |err|>
               <div class="error-box">
-                Level 2 caught (should NOT see this): {{err.message}}
+                Level 2 caught (should NOT see this):
+                {{err.message}}
               </div>
             </:error>
           </ErrorBoundary>
@@ -59,7 +61,8 @@ const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
       </:default>
       <:error as |err|>
         <div class="error-box">
-          Level 1 caught (should NOT see this): {{err.message}}
+          Level 1 caught (should NOT see this):
+          {{err.message}}
         </div>
       </:error>
     </ErrorBoundary>

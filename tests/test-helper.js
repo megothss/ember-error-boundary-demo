@@ -1,4 +1,3 @@
-import '@warp-drive/ember/install';
 import Application from 'error-boundary-demo/app';
 import config from 'error-boundary-demo/config/environment';
 import * as QUnit from 'qunit';

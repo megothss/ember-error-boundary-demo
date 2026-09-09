@@ -4,6 +4,7 @@ import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import { ErrorBoundary } from '@ember/component';
 import { LinkTo } from '@ember/routing';
+import { VERSION } from '@ember/version';
 
 const DEMOS = [
   { num: '1', label: 'Initial Render Error', route: 'initial-render-error' },
@@ -23,11 +24,15 @@ const DEMOS = [
 
 class App extends Component {
   @service router;
-  @tracked isDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true;
+  @tracked isDark =
+    window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true;
 
   toggleTheme = () => {
     this.isDark = !this.isDark;
-    document.documentElement.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
+    document.documentElement.setAttribute(
+      'data-theme',
+      this.isDark ? 'dark' : 'light'
+    );
   };
 
   <template>
@@ -37,11 +42,21 @@ class App extends Component {
           <LinkTo @route="index" class="header-title-link">
             <h1>ErrorBoundary Demo</h1>
           </LinkTo>
-          <span class="subtitle">ember-source 6.12.0-alpha.1</span>
+          <span class="subtitle">ember-source {{VERSION}}</span>
         </div>
         <div class="header-right">
-          <a class="header-link" href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md" target="_blank" rel="noopener noreferrer">Draft RFC</a>
-          <a class="header-link" href="https://github.com/megothss/ember.js/pull/2" target="_blank" rel="noopener noreferrer">Fork PR</a>
+          <a
+            class="header-link"
+            href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Draft RFC</a>
+          <a
+            class="header-link"
+            href="https://github.com/megothss/ember.js/pull/2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Fork PR</a>
         </div>
       </header>
 
@@ -53,7 +68,11 @@ class App extends Component {
             <span class="sidebar-item-label">{{demo.label}}</span>
           </LinkTo>
         {{/each}}
-        <button class="theme-toggle" type="button" {{on "click" this.toggleTheme}}>
+        <button
+          class="theme-toggle"
+          type="button"
+          {{on "click" this.toggleTheme}}
+        >
           {{if this.isDark "☀️ Light" "🌙 Dark"}}
         </button>
       </nav>
@@ -65,9 +84,11 @@ class App extends Component {
           </:default>
           <:error as |err|>
             <div class="error-box">
-              <strong>Route error caught!</strong> {{err.message}}
+              <strong>Route error caught!</strong>
+              {{err.message}}
               <br />
-              <span class="hint">Click a sidebar item to navigate away and reset.</span>
+              <span class="hint">Click a sidebar item to navigate away and
+                reset.</span>
             </div>
           </:error>
         </ErrorBoundary>

@@ -37,7 +37,8 @@ const SNIPPET = `<div class="siblings">
           </:default>
           <:error as |err|>
             <div class="error-box">
-              <strong>A caught!</strong> {{err.message}}
+              <strong>A caught!</strong>
+              {{err.message}}
             </div>
           </:error>
         </ErrorBoundary>
@@ -47,12 +48,14 @@ const SNIPPET = `<div class="siblings">
         <ErrorBoundary>
           <:default>
             <div class="success">
-              No errors here! <Counter />
+              No errors here!
+              <Counter />
             </div>
           </:default>
           <:error as |err|>
             <div class="error-box">
-              B caught: {{err.message}}
+              B caught:
+              {{err.message}}
             </div>
           </:error>
         </ErrorBoundary>

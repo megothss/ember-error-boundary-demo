@@ -20,7 +20,12 @@ const SNIPPET = `{{! The route is wrapped by the app-level ErrorBoundary }}
     <h3>Controller Error Route</h3>
     <div class="success">{{@controller.value}}</div>
     <div class="controls">
-      <button class="trigger-btn" disabled={{@controller.shouldThrow}} {{on "click" @controller.triggerError}}>
+      <button
+        class="trigger-btn"
+        disabled={{@controller.shouldThrow}}
+        type="button"
+        {{on "click" @controller.triggerError}}
+      >
         Trigger controller error
       </button>
     </div>

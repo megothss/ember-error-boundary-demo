@@ -11,7 +11,12 @@ export default class RerenderDemo extends Component {
 
   <template>
     <div class="controls">
-      <button class="trigger-btn" disabled={{this.shouldThrow}} {{on "click" this.triggerError}}>
+      <button
+        class="trigger-btn"
+        disabled={{this.shouldThrow}}
+        type="button"
+        {{on "click" this.triggerError}}
+      >
         Trigger error
       </button>
     </div>
@@ -22,7 +27,8 @@ export default class RerenderDemo extends Component {
       </:default>
       <:error as |err|>
         <div class="error-box">
-          <strong>Caught on rerender!</strong> {{err.message}}
+          <strong>Caught on rerender!</strong>
+          {{err.message}}
         </div>
       </:error>
     </ErrorBoundary>

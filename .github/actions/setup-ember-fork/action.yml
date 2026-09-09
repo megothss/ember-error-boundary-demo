@@ -1,0 +1,59 @@
+name: Set up ember-source fork
+description: >-
+  Builds the ErrorBoundary ember-source fork, points this app at the packed
+  tarball, and installs dependencies. The demo depends on ember-source via a
+  local path that only resolves on a developer machine, so CI has to build the
+  fork itself before it can install.
+
+inputs:
+  ref:
+    description: Branch or tag of the ember.js fork to build.
+    required: false
+    default: error-boundaries
+  repository:
+    description: Repository holding the ember-source fork.
+    required: false
+    default: megothss/ember.js
+
+runs:
+  using: composite
+  steps:
+    - name: Check out ember.js fork
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        path: ember-source-fork
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+
+    - name: Build and pack ember-source
+      shell: bash
+      run: |
+        cd ember-source-fork
+        pnpm install
+        pnpm build
+        pnpm pack --pack-destination ../
+        cd ..
+        echo "EMBER_TARBALL=$(ls ember-source-*.tgz)" >> "$GITHUB_ENV"
+
+    - name: Point the app at the packed ember-source
+      shell: bash
+      run: |
+        node -e "
+          const pkg = require('./package.json');
+          const tarball = 'file:./' + process.env.EMBER_TARBALL;
+          pkg.devDependencies['ember-source'] = tarball;
+          pkg.pnpm.overrides['ember-source'] = tarball;
+          require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+        "
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --no-frozen-lockfile

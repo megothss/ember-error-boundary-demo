@@ -8,14 +8,18 @@ export default class SiblingUpdateDemo extends Component {
   @tracked label = 'Hello from sibling';
 
   changeLabel = () => {
-    this.label = this.label === 'Hello from sibling' ? 'Updated sibling!' : 'Hello from sibling';
+    this.label =
+      this.label === 'Hello from sibling'
+        ? 'Updated sibling!'
+        : 'Hello from sibling';
   };
 
   <template>
     <p class="hint">
-      An ErrorBoundary followed by sibling content with tracked state.
-      Clicking the button triggers a tracked update on the sibling — without the
-      block-stack fix this crashes with <code>Cannot read properties of null (reading 'nextSibling')</code>.
+      An ErrorBoundary followed by sibling content with tracked state. Clicking
+      the button triggers a tracked update on the sibling — without the
+      block-stack fix this crashes with
+      <code>Cannot read properties of null (reading 'nextSibling')</code>.
     </p>
 
     <ErrorBoundary>
@@ -24,16 +28,17 @@ export default class SiblingUpdateDemo extends Component {
       </:default>
       <:error as |err|>
         <div class="error-box">
-          <strong>Caught!</strong> {{err.message}}
+          <strong>Caught!</strong>
+          {{err.message}}
         </div>
       </:error>
     </ErrorBoundary>
 
-    <div class="sibling-after" style="margin-top: 1rem;">
+    <div class="sibling-after">
       <h4>Sibling after ErrorBoundary</h4>
       <p>{{this.label}}</p>
       <div class="controls">
-        <button class="fix-btn" {{on "click" this.changeLabel}}>
+        <button class="fix-btn" type="button" {{on "click" this.changeLabel}}>
           Toggle label
         </button>
       </div>

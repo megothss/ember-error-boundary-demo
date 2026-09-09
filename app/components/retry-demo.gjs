@@ -15,7 +15,9 @@ class Fragile extends Component {
     return `Rendered OK (after ${Fragile.catchCount} catches)`;
   }
 
-  <template><div class="success">{{this.value}}</div></template>
+  <template>
+    <div class="success">{{this.value}}</div>
+  </template>
 }
 
 export default class RetryDemo extends Component {
@@ -30,10 +32,20 @@ export default class RetryDemo extends Component {
 
   <template>
     <div class="controls">
-      <button class="trigger-btn" disabled={{this.shouldThrow}} {{on "click" this.triggerError}}>
+      <button
+        class="trigger-btn"
+        disabled={{this.shouldThrow}}
+        type="button"
+        {{on "click" this.triggerError}}
+      >
         Trigger error
       </button>
-      <button class="fix-btn" disabled={{this.isOk}} {{on "click" this.fixState}}>
+      <button
+        class="fix-btn"
+        disabled={{this.isOk}}
+        type="button"
+        {{on "click" this.fixState}}
+      >
         Fix state
       </button>
     </div>
@@ -45,15 +57,22 @@ export default class RetryDemo extends Component {
       </:default>
       <:error as |err retry|>
         <div class="error-box">
-          <strong>Caught!</strong> {{err.message}}
+          <strong>Caught!</strong>
+          {{err.message}}
           <br />
           {{#if this.shouldThrow}}
-            <span class="hint status-bad">shouldThrow is still true — Retry will re-catch. Click "Fix state" first.</span>
+            <span class="hint status-bad">shouldThrow is still true — Retry will
+              re-catch. Click "Fix state" first.</span>
           {{else}}
-            <span class="hint status-ok">shouldThrow is false — Retry will recover.</span>
+            <span class="hint status-ok">shouldThrow is false — Retry will
+              recover.</span>
           {{/if}}
           <br />
-          <button class="retry-btn" {{on "click" retry}}>Retry</button>
+          <button
+            class="retry-btn"
+            type="button"
+            {{on "click" retry}}
+          >Retry</button>
         </div>
       </:error>
     </ErrorBoundary>

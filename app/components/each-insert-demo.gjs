@@ -14,7 +14,9 @@ class ItemComponent extends Component {
     return this.args.item;
   }
 
-  <template><span class="item">{{this.value}} </span></template>
+  <template>
+    <span class="item">{{this.value}} </span>
+  </template>
 }
 
 export default class EachInsertDemo extends Component {
@@ -38,10 +40,20 @@ export default class EachInsertDemo extends Component {
 
   <template>
     <div class="controls">
-      <button class="trigger-btn" disabled={{this.hasBomb}} {{on "click" this.addBadItem}}>
+      <button
+        class="trigger-btn"
+        disabled={{this.hasBomb}}
+        type="button"
+        {{on "click" this.addBadItem}}
+      >
         Add bad item
       </button>
-      <button class="fix-btn" disabled={{this.isClean}} {{on "click" this.reset}}>
+      <button
+        class="fix-btn"
+        disabled={{this.isClean}}
+        type="button"
+        {{on "click" this.reset}}
+      >
         Reset items
       </button>
     </div>
@@ -54,15 +66,21 @@ export default class EachInsertDemo extends Component {
       </:default>
       <:error as |err retry|>
         <div class="error-box">
-          <strong>Caught!</strong> {{err.message}}
+          <strong>Caught!</strong>
+          {{err.message}}
           <br />
           {{#if this.hasBomb}}
-            <span class="hint status-bad">Items still contain "bomb" — Retry will re-catch. Click "Reset items" first.</span>
+            <span class="hint status-bad">Items still contain "bomb" — Retry
+              will re-catch. Click "Reset items" first.</span>
           {{else}}
             <span class="hint status-ok">Items are clean — Retry will recover.</span>
           {{/if}}
           <br />
-          <button class="retry-btn" {{on "click" retry}}>Retry</button>
+          <button
+            class="retry-btn"
+            type="button"
+            {{on "click" retry}}
+          >Retry</button>
         </div>
       </:error>
     </ErrorBoundary>

@@ -8,9 +8,11 @@ const throwInErrorBlock = helper(() => {
 
 <template>
   <p>
-    When the <code>&lt;:error&gt;</code> block itself throws, the error bubbles up to the
-    nearest parent <code>&lt;ErrorBoundary&gt;</code>. This demonstrates proper error propagation
-    through nested boundaries.
+    When the
+    <code>&lt;:error&gt;</code>
+    block itself throws, the error bubbles up to the nearest parent
+    <code>&lt;ErrorBoundary&gt;</code>. This demonstrates proper error
+    propagation through nested boundaries.
   </p>
 
   <ErrorBoundary>
@@ -27,8 +29,10 @@ const throwInErrorBlock = helper(() => {
     </:default>
     <:error as |err|>
       <div class="error-box">
-        <strong>Outer boundary caught!</strong> {{err.message}}
-        <p class="hint">The inner boundary's error block threw, so the error bubbled up here.</p>
+        <strong>Outer boundary caught!</strong>
+        {{err.message}}
+        <p class="hint">The inner boundary's error block threw, so the error
+          bubbled up here.</p>
       </div>
     </:error>
   </ErrorBoundary>

@@ -9,8 +9,9 @@ export default class Counter extends Component {
 
   <template>
     <span class="counter">
-      Count: <strong>{{this.count}}</strong>
-      <button {{on "click" this.increment}}>+1</button>
+      Count:
+      <strong>{{this.count}}</strong>
+      <button type="button" {{on "click" this.increment}}>+1</button>
     </span>
   </template>
 }

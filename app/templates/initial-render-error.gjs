@@ -33,7 +33,8 @@ const SNIPPET = `<ErrorBoundary>
       </:default>
       <:error as |err|>
         <div class="error-box">
-          <strong>Caught!</strong> {{err.message}}
+          <strong>Caught!</strong>
+          {{err.message}}
         </div>
       </:error>
     </ErrorBoundary>
@@ -45,7 +46,8 @@ const SNIPPET = `<ErrorBoundary>
       </:default>
       <:error as |err|>
         <div class="error-box">
-          <strong>Caught!</strong> {{err.message}}
+          <strong>Caught!</strong>
+          {{err.message}}
         </div>
       </:error>
     </ErrorBoundary>

@@ -15,39 +15,21 @@ jobs:
   lint:
     name: "Lint"
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - name: Install Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-ember-fork
       - name: Lint
         run: pnpm lint
 
   test:
     name: "Test"
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - name: Install Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-ember-fork
       - name: Run Tests
         run: pnpm test
