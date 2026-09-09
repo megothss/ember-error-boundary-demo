@@ -3,3 +3,6 @@
 
 # compiled output
 /dist/
+
+# ember-source fork, checked out here by CI to build ember-source
+/ember-source-fork/
