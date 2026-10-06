@@ -6,20 +6,20 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 import selfSource from './nested-boundaries.gjs?raw';
 
 const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
-  <:default>
+  <:try>
     <ErrorBoundary>       {{! Level 2 — unaffected }}
-      <:default>
+      <:try>
         <ErrorBoundary>   {{! Level 3 — catches }}
-          <:default>
+          <:try>
             <AlwaysThrows />
-          </:default>
-          <:error as |err|>
+          </:try>
+          <:catch as |err|>
             Level 3 caught: {{err.message}}
-          </:error>
+          </:catch>
         </ErrorBoundary>
-      </:default>
+      </:try>
     </ErrorBoundary>
-  </:default>
+  </:try>
 </ErrorBoundary>`;
 
 <template>
@@ -28,43 +28,43 @@ const SNIPPET = `<ErrorBoundary>           {{! Level 1 — unaffected }}
     @description="Three levels deep. Only the innermost boundary catches the error. Middle and outer boundaries remain unaffected."
   >
     <ErrorBoundary>
-      <:default>
+      <:try>
         <div class="nested-level" data-level="1">
           <span class="success">Level 1 — Outer boundary content is fine</span>
           <ErrorBoundary>
-            <:default>
+            <:try>
               <div class="nested-level" data-level="2">
                 <span class="success">Level 2 — Middle boundary content is fine</span>
                 <ErrorBoundary>
-                  <:default>
+                  <:try>
                     <div class="nested-level" data-level="3">
                       <AlwaysThrows />
                     </div>
-                  </:default>
-                  <:error as |err|>
+                  </:try>
+                  <:catch as |err|>
                     <div class="error-box inner">
                       <strong>Level 3 caught!</strong>
                       {{err.message}}
                     </div>
-                  </:error>
+                  </:catch>
                 </ErrorBoundary>
               </div>
-            </:default>
-            <:error as |err|>
+            </:try>
+            <:catch as |err|>
               <div class="error-box">
                 Level 2 caught (should NOT see this):
                 {{err.message}}
               </div>
-            </:error>
+            </:catch>
           </ErrorBoundary>
         </div>
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           Level 1 caught (should NOT see this):
           {{err.message}}
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
   </DemoSection>
 

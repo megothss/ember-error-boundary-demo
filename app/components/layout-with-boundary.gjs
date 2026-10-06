@@ -7,17 +7,17 @@ import { ErrorBoundary } from '@ember/component';
       — this stays intact when the child errors
     </div>
     <ErrorBoundary>
-      <:default>
+      <:try>
         {{yield}}
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Layout boundary caught!</strong>
           {{err.message}}
           <br />
           <span class="hint">The layout stays intact. Navigate away to recover.</span>
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
   </div>
 </template>

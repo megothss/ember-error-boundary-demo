@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { service } from '@ember/service';
 import { ErrorBoundary } from '@ember/component';
 import { LinkTo } from '@ember/routing';
 import { VERSION } from '@ember/version';
@@ -17,13 +16,13 @@ const DEMOS = [
   { num: '8', label: 'Layout + Outlet', route: 'outlet-layout.child' },
   { num: '9', label: 'Not Caught', route: 'not-caught' },
   { num: '10', label: 'Silent Error', route: 'silent-error' },
-  { num: '11', label: 'Error Block Throws', route: 'error-block-throws' },
+  { num: '11', label: 'Catch Block Throws', route: 'error-block-throws' },
   { num: '12', label: 'Sibling Update', route: 'sibling-update' },
   { num: '13', label: 'In-Element Portal', route: 'in-element-portal' },
+  { num: '14', label: 'Fine-grained Retry', route: 'fine-grained-retry' },
 ];
 
 class App extends Component {
-  @service router;
   @tracked isDark =
     window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true;
 
@@ -78,19 +77,20 @@ class App extends Component {
       </nav>
 
       <main class="content-area">
-        <ErrorBoundary @retryWith={{this.router.currentRouteName}}>
-          <:default>
+        <ErrorBoundary>
+          <:try>
             {{outlet}}
-          </:default>
-          <:error as |err|>
+          </:try>
+          <:catch as |err|>
             <div class="error-box">
               <strong>Route error caught!</strong>
               {{err.message}}
               <br />
-              <span class="hint">Click a sidebar item to navigate away and
-                reset.</span>
+              <span class="hint">Click a sidebar item to navigate away. The
+                failed render read the route state, so the boundary retries when
+                it changes.</span>
             </div>
-          </:error>
+          </:catch>
         </ErrorBoundary>
       </main>
     </div>

@@ -6,12 +6,12 @@ import fullSource from 'error-boundary-demo/components/sibling-update-demo.gjs?r
 
 const SNIPPET = `{{! ErrorBoundary followed by sibling with tracked state }}
 <ErrorBoundary>
-  <:default>
+  <:try>
     <div class="success">No error here.</div>
-  </:default>
-  <:error as |err|>
+  </:try>
+  <:catch as |err|>
     Caught: {{err.message}}
-  </:error>
+  </:catch>
 </ErrorBoundary>
 
 {{! Sibling content — tracked updates must work }}

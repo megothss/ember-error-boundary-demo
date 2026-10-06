@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { ErrorBoundary } from '@ember/component';
 import AlwaysThrows from './always-throws';
@@ -13,15 +12,10 @@ export default class InElementDemo extends Component {
   triggerDefaultError = () => (this.shouldThrowDefault = true);
   triggerAppendError = () => (this.shouldThrowAppend = true);
 
-  resetDefaultAndRetry = (retry) => {
-    this.shouldThrowDefault = false;
-    retry();
-  };
-
-  resetAppendAndRetry = (retry) => {
-    this.shouldThrowAppend = false;
-    retry();
-  };
+  // Resetting is enough: the failed render read this state, so the boundary
+  // retries on its own when it changes.
+  resetDefault = () => (this.shouldThrowDefault = false);
+  resetAppend = () => (this.shouldThrowAppend = false);
 
   get defaultTarget1() {
     return document.getElementById('portal-default-1');
@@ -58,17 +52,17 @@ export default class InElementDemo extends Component {
         <div class="in-element-source">
           <span class="label">Boundary (source)</span>
           <ErrorBoundary>
-            <:default>
+            <:try>
               {{#in-element this.defaultTarget1}}
                 <AlwaysThrows />
               {{/in-element}}
-            </:default>
-            <:error as |err|>
+            </:try>
+            <:catch as |err|>
               <div class="error-box">
                 <strong>Caught!</strong>
                 {{err.message}}
               </div>
-            </:error>
+            </:catch>
           </ErrorBoundary>
         </div>
       </div>
@@ -79,6 +73,7 @@ export default class InElementDemo extends Component {
           class="trigger-btn"
           disabled={{this.shouldThrowDefault}}
           type="button"
+          data-test-trigger-default
           {{on "click" this.triggerDefaultError}}
         >
           Trigger error
@@ -93,15 +88,15 @@ export default class InElementDemo extends Component {
         <div class="in-element-source">
           <span class="label">Boundary (source)</span>
           <ErrorBoundary>
-            <:default>
+            <:try>
               {{#in-element this.defaultTarget2}}
                 <MaybeThrows
                   @shouldThrow={{this.shouldThrowDefault}}
                   @successMessage="This content was portaled here via in-element"
                 />
               {{/in-element}}
-            </:default>
-            <:error as |err retry|>
+            </:try>
+            <:catch as |err|>
               <div class="error-box">
                 <strong>Caught!</strong>
                 {{err.message}}
@@ -109,13 +104,14 @@ export default class InElementDemo extends Component {
                   <button
                     class="retry-btn"
                     type="button"
-                    {{on "click" (fn this.resetDefaultAndRetry retry)}}
+                    data-test-reset-default
+                    {{on "click" this.resetDefault}}
                   >
-                    Reset &amp; Retry
+                    Reset
                   </button>
                 </div>
               </div>
-            </:error>
+            </:catch>
           </ErrorBoundary>
         </div>
       </div>
@@ -139,17 +135,17 @@ export default class InElementDemo extends Component {
         <div class="in-element-source">
           <span class="label">Boundary (source)</span>
           <ErrorBoundary>
-            <:default>
+            <:try>
               {{#in-element this.appendTarget1 insertBefore=null}}
                 <AlwaysThrows />
               {{/in-element}}
-            </:default>
-            <:error as |err|>
+            </:try>
+            <:catch as |err|>
               <div class="error-box">
                 <strong>Caught!</strong>
                 {{err.message}}
               </div>
-            </:error>
+            </:catch>
           </ErrorBoundary>
         </div>
       </div>
@@ -174,15 +170,15 @@ export default class InElementDemo extends Component {
         <div class="in-element-source">
           <span class="label">Boundary (source)</span>
           <ErrorBoundary>
-            <:default>
+            <:try>
               {{#in-element this.appendTarget2 insertBefore=null}}
                 <MaybeThrows
                   @shouldThrow={{this.shouldThrowAppend}}
                   @successMessage="This content was portaled here via in-element"
                 />
               {{/in-element}}
-            </:default>
-            <:error as |err retry|>
+            </:try>
+            <:catch as |err|>
               <div class="error-box">
                 <strong>Caught!</strong>
                 {{err.message}}
@@ -190,13 +186,14 @@ export default class InElementDemo extends Component {
                   <button
                     class="retry-btn"
                     type="button"
-                    {{on "click" (fn this.resetAppendAndRetry retry)}}
+                    data-test-reset-append
+                    {{on "click" this.resetAppend}}
                   >
-                    Reset &amp; Retry
+                    Reset
                   </button>
                 </div>
               </div>
-            </:error>
+            </:catch>
           </ErrorBoundary>
         </div>
       </div>

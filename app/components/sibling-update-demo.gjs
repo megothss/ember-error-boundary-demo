@@ -23,15 +23,15 @@ export default class SiblingUpdateDemo extends Component {
     </p>
 
     <ErrorBoundary>
-      <:default>
+      <:try>
         <div class="success">ErrorBoundary content — no error here.</div>
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Caught!</strong>
           {{err.message}}
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
 
     <div class="sibling-after">

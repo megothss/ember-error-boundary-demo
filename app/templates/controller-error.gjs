@@ -4,15 +4,16 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 import fullSource from 'error-boundary-demo/controllers/controller-error.js?raw';
 
 const SNIPPET = `{{! The route is wrapped by the app-level ErrorBoundary }}
-{{! in application.gjs using @retryWith: }}
+{{! in application.gjs. The failed render read the route state, }}
+{{! so navigating away is enough to make the boundary retry. }}
 
-<ErrorBoundary @retryWith={{this.router.currentRouteName}}>
-  <:default>
+<ErrorBoundary>
+  <:try>
     {{outlet}}
-  </:default>
-  <:error as |err|>
+  </:try>
+  <:catch as |err|>
     Route error caught! {{err.message}}
-  </:error>
+  </:catch>
 </ErrorBoundary>`;
 
 <template>

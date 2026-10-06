@@ -7,7 +7,7 @@ import Counter from 'error-boundary-demo/components/counter';
     When an
     <code>&lt;ErrorBoundary&gt;</code>
     has no
-    <code>&lt;:error&gt;</code>
+    <code>&lt;:catch&gt;</code>
     block, caught errors are silently swallowed and the errored subtree simply
     disappears from the DOM. This is useful for optional, non-critical UI where
     showing nothing is better than crashing.
@@ -15,7 +15,7 @@ import Counter from 'error-boundary-demo/components/counter';
 
   <div class="siblings">
     <div class="sibling">
-      <h3>No error block (silent)</h3>
+      <h3>No catch block (silent)</h3>
       <ErrorBoundary>
         <AlwaysThrows />
       </ErrorBoundary>
@@ -23,17 +23,17 @@ import Counter from 'error-boundary-demo/components/counter';
         crash, no fallback.</p>
     </div>
     <div class="sibling">
-      <h3>With error block (for comparison)</h3>
+      <h3>With catch block (for comparison)</h3>
       <ErrorBoundary>
-        <:default>
+        <:try>
           <AlwaysThrows />
-        </:default>
-        <:error as |err|>
+        </:try>
+        <:catch as |err|>
           <div class="error-box">
             <strong>Caught!</strong>
             {{err.message}}
           </div>
-        </:error>
+        </:catch>
       </ErrorBoundary>
     </div>
   </div>

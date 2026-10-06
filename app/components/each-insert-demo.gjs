@@ -44,6 +44,7 @@ export default class EachInsertDemo extends Component {
         class="trigger-btn"
         disabled={{this.hasBomb}}
         type="button"
+        data-test-add-bad-item
         {{on "click" this.addBadItem}}
       >
         Add bad item
@@ -52,6 +53,7 @@ export default class EachInsertDemo extends Component {
         class="fix-btn"
         disabled={{this.isClean}}
         type="button"
+        data-test-reset-items
         {{on "click" this.reset}}
       >
         Reset items
@@ -59,30 +61,20 @@ export default class EachInsertDemo extends Component {
     </div>
 
     <ErrorBoundary>
-      <:default>
+      <:try>
         {{#each this.items as |item|}}
           <ItemComponent @item={{item}} />
         {{/each}}
-      </:default>
-      <:error as |err retry|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Caught!</strong>
           {{err.message}}
           <br />
-          {{#if this.hasBomb}}
-            <span class="hint status-bad">Items still contain "bomb" — Retry
-              will re-catch. Click "Reset items" first.</span>
-          {{else}}
-            <span class="hint status-ok">Items are clean — Retry will recover.</span>
-          {{/if}}
-          <br />
-          <button
-            class="retry-btn"
-            type="button"
-            {{on "click" retry}}
-          >Retry</button>
+          <span class="hint">The failed render read the items. Click "Reset
+            items" and the boundary retries on its own.</span>
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
   </template>
 }

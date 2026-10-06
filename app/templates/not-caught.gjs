@@ -6,12 +6,12 @@ import fullSource from 'error-boundary-demo/components/not-caught-demo.gjs?raw';
 
 const SNIPPET = `{{! Modifier errors escape ErrorBoundary }}
 <ErrorBoundary>
-  <:default>
+  <:try>
     <div {{throwingModifier}}>...</div>
-  </:default>
-  <:error as |err|>
+  </:try>
+  <:catch as |err|>
     This will NOT appear — modifier errors are not caught
-  </:error>
+  </:catch>
 </ErrorBoundary>
 
 {{! Async errors also escape ErrorBoundary }}

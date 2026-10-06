@@ -2,8 +2,8 @@ import { ErrorBoundary } from '@ember/component';
 import { helper } from '@ember/component/helper';
 import AlwaysThrows from 'error-boundary-demo/components/always-throws';
 
-const throwInErrorBlock = helper(() => {
-  throw new Error('Error block itself exploded!');
+const throwInCatchBlock = helper(() => {
+  throw new Error('Catch block itself exploded!');
 });
 
 <template>
@@ -16,24 +16,24 @@ const throwInErrorBlock = helper(() => {
   </p>
 
   <ErrorBoundary>
-    <:default>
+    <:try>
       <ErrorBoundary>
-        <:default>
+        <:try>
           <AlwaysThrows />
-        </:default>
-        <:error as |err|>
+        </:try>
+        <:catch as |err|>
           <p>Inner boundary caught: {{err.message}}</p>
-          <p>But this helper will throw: {{(throwInErrorBlock)}}</p>
-        </:error>
+          <p>But this helper will throw: {{(throwInCatchBlock)}}</p>
+        </:catch>
       </ErrorBoundary>
-    </:default>
-    <:error as |err|>
+    </:try>
+    <:catch as |err|>
       <div class="error-box">
         <strong>Outer boundary caught!</strong>
         {{err.message}}
-        <p class="hint">The inner boundary's error block threw, so the error
+        <p class="hint">The inner boundary's catch block threw, so the error
           bubbled up here.</p>
       </div>
-    </:error>
+    </:catch>
   </ErrorBoundary>
 </template>

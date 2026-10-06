@@ -5,22 +5,22 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 import fullSource from 'error-boundary-demo/components/retry-demo.gjs?raw';
 
 const SNIPPET = `<ErrorBoundary>
-  <:default>
-    <Fragile @shouldThrow={{this.shouldThrow}} />
+  <:try>
+    <Fragile @shouldThrow={{this.shouldThrow}} @requestId={{this.requestId}} />
     <Counter />
-  </:default>
-  <:error as |err retry|>
+  </:try>
+  <:catch as |err retry|>
     <div class="error-box">
       <strong>Caught!</strong> {{err.message}}
       <button class="retry-btn" {{on "click" retry}}>Retry</button>
     </div>
-  </:error>
+  </:catch>
 </ErrorBoundary>`;
 
 <template>
   <DemoSection
     @title="3. Retry & Recovery"
-    @description="Trigger an error, fix the state, then click Retry to recover. Repeat the cycle multiple times — the boundary never gets stuck. The counter proves interactivity survives recovery."
+    @description="A boundary retries on its own when tracked state its failed render read changes, so fixing that state is enough. The retry block param covers what tracking can't see: a failure from untracked state, like an outage, needs a manual Retry once it is resolved. The counter proves interactivity survives recovery."
   >
     <RetryDemo />
   </DemoSection>

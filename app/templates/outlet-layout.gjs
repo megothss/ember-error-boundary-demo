@@ -9,12 +9,12 @@ const SNIPPET = `{{! layout-with-boundary.gjs }}
     Layout Component — stays intact when the child errors
   </div>
   <ErrorBoundary>
-    <:default>
+    <:try>
       {{yield}}
-    </:default>
-    <:error as |err|>
+    </:try>
+    <:catch as |err|>
       Layout boundary caught! {{err.message}}
-    </:error>
+    </:catch>
   </ErrorBoundary>
 </div>`;
 

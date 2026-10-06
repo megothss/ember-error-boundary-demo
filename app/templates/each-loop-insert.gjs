@@ -5,23 +5,22 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 import fullSource from 'error-boundary-demo/components/each-insert-demo.gjs?raw';
 
 const SNIPPET = `<ErrorBoundary>
-  <:default>
+  <:try>
     {{#each this.items as |item|}}
       <ItemComponent @item={{item}} />
     {{/each}}
-  </:default>
-  <:error as |err retry|>
+  </:try>
+  <:catch as |err|>
     <div class="error-box">
       <strong>Caught!</strong> {{err.message}}
-      <button class="retry-btn" {{on "click" retry}}>Retry</button>
     </div>
-  </:error>
+  </:catch>
 </ErrorBoundary>`;
 
 <template>
   <DemoSection
     @title="6. Each Loop Insert Error"
-    @description="An each loop inside an ErrorBoundary. Click to add a bad item that throws during render."
+    @description="An each loop inside an ErrorBoundary. Click to add a bad item that throws during render, then reset the items to recover."
   >
     <EachInsertDemo />
   </DemoSection>

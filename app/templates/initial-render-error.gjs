@@ -11,14 +11,14 @@ const explodingHelper = helper(() => {
 });
 
 const SNIPPET = `<ErrorBoundary>
-  <:default>
+  <:try>
     <AlwaysThrows />
-  </:default>
-  <:error as |err|>
+  </:try>
+  <:catch as |err|>
     <div class="error-box">
       <strong>Caught!</strong> {{err.message}}
     </div>
-  </:error>
+  </:catch>
 </ErrorBoundary>`;
 
 <template>
@@ -28,28 +28,28 @@ const SNIPPET = `<ErrorBoundary>
   >
     <h4>Component error</h4>
     <ErrorBoundary>
-      <:default>
+      <:try>
         <AlwaysThrows />
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Caught!</strong>
           {{err.message}}
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
 
     <h4>Helper error</h4>
     <ErrorBoundary>
-      <:default>
+      <:try>
         <span>Result: {{(explodingHelper)}}</span>
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Caught!</strong>
           {{err.message}}
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
   </DemoSection>
 

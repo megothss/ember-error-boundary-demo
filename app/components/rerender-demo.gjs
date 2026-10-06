@@ -22,15 +22,15 @@ export default class RerenderDemo extends Component {
     </div>
 
     <ErrorBoundary>
-      <:default>
+      <:try>
         <MaybeThrows @shouldThrow={{this.shouldThrow}} />
-      </:default>
-      <:error as |err|>
+      </:try>
+      <:catch as |err|>
         <div class="error-box">
           <strong>Caught on rerender!</strong>
           {{err.message}}
         </div>
-      </:error>
+      </:catch>
     </ErrorBoundary>
   </template>
 }

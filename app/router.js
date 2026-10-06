@@ -22,5 +22,6 @@ Router.map(function () {
   this.route('error-block-throws');
   this.route('sibling-update');
   this.route('in-element-portal');
+  this.route('fine-grained-retry');
   this.route('not-found', { path: '/*path' });
 });

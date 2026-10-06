@@ -6,19 +6,17 @@ import fullSource from 'error-boundary-demo/components/in-element-demo.gjs?raw';
 
 const SNIPPET = `{{! ErrorBoundary wrapping an in-element portal }}
 <ErrorBoundary>
-  <:default>
+  <:try>
     {{#in-element this.portalTarget}}
       <MaybeThrows @shouldThrow={{this.shouldThrow}} />
     {{/in-element}}
-  </:default>
-  <:error as |err retry|>
+  </:try>
+  <:catch as |err|>
     <div class="error-box">
       Caught: {{err.message}}
-      <button {{on "click" (fn this.resetAndRetry retry)}}>
-        Reset &amp; Retry
-      </button>
+      <button {{on "click" this.reset}}>Reset</button>
     </div>
-  </:error>
+  </:catch>
 </ErrorBoundary>`;
 
 <template>

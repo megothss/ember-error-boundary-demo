@@ -8,18 +8,18 @@ import selfSource from './sibling-isolation.gjs?raw';
 
 const SNIPPET = `<div class="siblings">
   <ErrorBoundary>    {{! Boundary A — errors }}
-    <:default>
+    <:try>
       <AlwaysThrows />
-    </:default>
-    <:error as |err|>
+    </:try>
+    <:catch as |err|>
       A caught: {{err.message}}
-    </:error>
+    </:catch>
   </ErrorBoundary>
 
   <ErrorBoundary>    {{! Boundary B — unaffected }}
-    <:default>
+    <:try>
       <Counter />
-    </:default>
+    </:try>
   </ErrorBoundary>
 </div>`;
 
@@ -32,32 +32,32 @@ const SNIPPET = `<div class="siblings">
       <div class="sibling">
         <h3>Boundary A (errors)</h3>
         <ErrorBoundary>
-          <:default>
+          <:try>
             <AlwaysThrows />
-          </:default>
-          <:error as |err|>
+          </:try>
+          <:catch as |err|>
             <div class="error-box">
               <strong>A caught!</strong>
               {{err.message}}
             </div>
-          </:error>
+          </:catch>
         </ErrorBoundary>
       </div>
       <div class="sibling">
         <h3>Boundary B (works fine)</h3>
         <ErrorBoundary>
-          <:default>
+          <:try>
             <div class="success">
               No errors here!
               <Counter />
             </div>
-          </:default>
-          <:error as |err|>
+          </:try>
+          <:catch as |err|>
             <div class="error-box">
               B caught:
               {{err.message}}
             </div>
-          </:error>
+          </:catch>
         </ErrorBoundary>
       </div>
     </div>
