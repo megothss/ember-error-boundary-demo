@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  ember-source: file:../core/ember.js
+  ember-source: file:../core/ember.js-try
 
 importers:
 
@@ -85,7 +85,7 @@ importers:
         version: 4.0.1(@babel/core@7.29.7)
       ember-load-initializers:
         specifier: ^3.0.1
-        version: 3.0.1(ember-source@file:../core/ember.js(@glimmer/component@2.0.0))
+        version: 3.0.1(ember-source@file:../core/ember.js-try(@glimmer/component@2.0.0))
       ember-modifier:
         specifier: ^4.3.0
         version: 4.3.0(@babel/core@7.29.7)
@@ -96,8 +96,8 @@ importers:
         specifier: ^13.2.0
         version: 13.2.0
       ember-source:
-        specifier: file:../core/ember.js
-        version: file:../core/ember.js(@glimmer/component@2.0.0)
+        specifier: file:../core/ember.js-try
+        version: file:../core/ember.js-try(@glimmer/component@2.0.0)
       ember-template-lint:
         specifier: ^7.9.3
         version: 7.9.3
@@ -2895,8 +2895,8 @@ packages:
     resolution: {integrity: sha512-89oVHVJwmLDvGvAUWgS87KpBoRhy3aZ6U0Ql6HOmU4TrPkyaa8pM0W81wj9cIwjYprcQtN9EwzZMHnq46+oUyw==}
     engines: {node: 8.* || 10.* || >= 12}
 
-  ember-source@file:../core/ember.js:
-    resolution: {directory: ../core/ember.js, type: directory}
+  ember-source@file:../core/ember.js-try:
+    resolution: {directory: ../core/ember.js-try, type: directory}
     engines: {node: '>= 20.19'}
     peerDependencies:
       '@glimmer/component': '>= 1.1.2'
@@ -8658,9 +8658,9 @@ snapshots:
       - eslint
       - typescript
 
-  ember-load-initializers@3.0.1(ember-source@file:../core/ember.js(@glimmer/component@2.0.0)):
+  ember-load-initializers@3.0.1(ember-source@file:../core/ember.js-try(@glimmer/component@2.0.0)):
     dependencies:
-      ember-source: file:../core/ember.js(@glimmer/component@2.0.0)
+      ember-source: file:../core/ember.js-try(@glimmer/component@2.0.0)
 
   ember-modifier@4.3.0(@babel/core@7.29.7):
     dependencies:
@@ -8685,13 +8685,13 @@ snapshots:
 
   ember-router-generator@2.0.0:
     dependencies:
-      '@babel/parser': 7.29.0
-      '@babel/traverse': 7.29.0
+      '@babel/parser': 7.29.8
+      '@babel/traverse': 7.29.8
       recast: 0.18.10
     transitivePeerDependencies:
       - supports-color
 
-  ember-source@file:../core/ember.js(@glimmer/component@2.0.0):
+  ember-source@file:../core/ember.js-try(@glimmer/component@2.0.0):
     dependencies:
       '@babel/core': 7.29.7
       '@embroider/addon-shim': 1.10.2
@@ -8708,7 +8708,7 @@ snapshots:
       ember-router-generator: 2.0.0
       inflection: 2.0.1
       route-recognizer: 0.3.4
-      semver: 7.7.4
+      semver: 7.8.5
       silent-error: 1.1.1
       simple-html-tokenizer: 0.5.11
     transitivePeerDependencies:

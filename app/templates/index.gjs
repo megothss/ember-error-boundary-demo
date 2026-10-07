@@ -1,3 +1,5 @@
+import { COMPONENT_DEMO_URL } from 'error-boundary-demo/variant';
+
 <template>
   <div class="homepage">
     <div class="homepage-banner">
@@ -14,10 +16,19 @@
     </p>
 
     <p class="homepage-text">
-      Error boundaries change that. Wrap any part of your template in an
-      ErrorBoundary component, and if something inside it throws during render
-      or rerender, the boundary catches the error and displays fallback UI. The
-      rest of the application keeps working normally.
+      Error boundaries change that. Wrap any part of your template in a
+      <code>\{{#try}}</code>
+      block, and if something inside it throws during render or rerender, the
+      block catches the error and renders its
+      <code>\{{catch}}</code>
+      branch instead. The rest of the application keeps working normally.
+    </p>
+
+    <p class="homepage-text">
+      This is the keyword version of the demo. The same demos written with the
+      <code>&lt;ErrorBoundary&gt;</code>
+      component are at
+      <a href={{COMPONENT_DEMO_URL}}>the component version</a>.
     </p>
 
     <p class="homepage-text">

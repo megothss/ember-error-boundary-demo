@@ -5,17 +5,14 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 import fullSource from 'error-boundary-demo/components/fine-grained-retry-demo.gjs?raw';
 
 const SNIPPET = `{{! Widget reads @version and @broken, then throws while broken. }}
-<ErrorBoundary>
-  <:try>
-    <Widget @version={{this.version}} @broken={{this.broken}} />
-  </:try>
-  <:catch as |err|>
-    <div class="error-box">
-      <strong>Caught!</strong> {{err.message}}
-      Unrelated state: {{this.unrelated}}
-    </div>
-  </:catch>
-</ErrorBoundary>`;
+{{#try}}
+  <Widget @version={{this.version}} @broken={{this.broken}} />
+{{catch as |err|}}
+  <div class="error-box">
+    <strong>Caught!</strong> {{err.message}}
+    Unrelated state: {{this.unrelated}}
+  </div>
+{{/try}}`;
 
 <template>
   <DemoSection

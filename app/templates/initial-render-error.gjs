@@ -1,4 +1,3 @@
-import { ErrorBoundary } from '@ember/component';
 import { helper } from '@ember/component/helper';
 import AlwaysThrows from 'error-boundary-demo/components/always-throws';
 import DemoSection from 'error-boundary-demo/components/demo-section';
@@ -10,16 +9,13 @@ const explodingHelper = helper(() => {
   throw new Error('Helper exploded!');
 });
 
-const SNIPPET = `<ErrorBoundary>
-  <:try>
-    <AlwaysThrows />
-  </:try>
-  <:catch as |err|>
-    <div class="error-box">
-      <strong>Caught!</strong> {{err.message}}
-    </div>
-  </:catch>
-</ErrorBoundary>`;
+const SNIPPET = `{{#try}}
+  <AlwaysThrows />
+{{catch as |err|}}
+  <div class="error-box">
+    <strong>Caught!</strong> {{err.message}}
+  </div>
+{{/try}}`;
 
 <template>
   <DemoSection
@@ -27,30 +23,24 @@ const SNIPPET = `<ErrorBoundary>
     @description="A component and a helper that always throw during render. The boundary catches both immediately."
   >
     <h4>Component error</h4>
-    <ErrorBoundary>
-      <:try>
-        <AlwaysThrows />
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <AlwaysThrows />
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+      </div>
+    {{/try}}
 
     <h4>Helper error</h4>
-    <ErrorBoundary>
-      <:try>
-        <span>Result: {{(explodingHelper)}}</span>
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <span>Result: {{(explodingHelper)}}</span>
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+      </div>
+    {{/try}}
   </DemoSection>
 
   <SourceViewer

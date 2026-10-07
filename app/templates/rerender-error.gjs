@@ -4,16 +4,13 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 
 import fullSource from 'error-boundary-demo/components/rerender-demo.gjs?raw';
 
-const SNIPPET = `<ErrorBoundary>
-  <:try>
-    <MaybeThrows @shouldThrow={{this.shouldThrow}} />
-  </:try>
-  <:catch as |err|>
-    <div class="error-box">
-      <strong>Caught on rerender!</strong> {{err.message}}
-    </div>
-  </:catch>
-</ErrorBoundary>`;
+const SNIPPET = `{{#try}}
+  <MaybeThrows @shouldThrow={{this.shouldThrow}} />
+{{catch as |err|}}
+  <div class="error-box">
+    <strong>Caught on rerender!</strong> {{err.message}}
+  </div>
+{{/try}}`;
 
 <template>
   <DemoSection

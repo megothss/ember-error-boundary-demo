@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
-import { ErrorBoundary } from '@ember/component';
 
 const throwingModifier = modifier(() => {
   throw new Error('Modifier exploded during install!');
@@ -37,23 +36,20 @@ export default class NotCaughtDemo extends Component {
   <template>
     <h4>Modifier Error</h4>
     <p class="hint">Modifiers run in transaction.commit() after the VM render
-      pass. ErrorBoundary does NOT catch them.</p>
-    <ErrorBoundary>
-      <:try>
-        {{#if this.showModifier}}
-          <div {{throwingModifier}}>Content with a throwing modifier</div>
-        {{else}}
-          <div class="success">Modifier not triggered yet.</div>
-        {{/if}}
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-          (this should not appear)
-        </div>
-      </:catch>
-    </ErrorBoundary>
+      pass. A try block does NOT catch them.</p>
+    {{#try}}
+      {{#if this.showModifier}}
+        <div {{throwingModifier}}>Content with a throwing modifier</div>
+      {{else}}
+        <div class="success">Modifier not triggered yet.</div>
+      {{/if}}
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+        (this should not appear)
+      </div>
+    {{/try}}
     <div class="controls">
       <button
         class="trigger-btn"
@@ -67,7 +63,7 @@ export default class NotCaughtDemo extends Component {
 
     <h4>Async Errors</h4>
     <p class="hint">Errors in setTimeout or Promises happen outside the render
-      cycle. ErrorBoundary does NOT catch them.</p>
+      cycle. A try block does NOT catch them.</p>
     <div class="controls">
       <button
         class="trigger-btn"
@@ -85,21 +81,18 @@ export default class NotCaughtDemo extends Component {
       </button>
     </div>
 
-    <ErrorBoundary>
-      <:try>
-        <div class="success">Still standing — async errors are NOT caught by
-          ErrorBoundary.</div>
-        {{#if this.log}}
-          <p class="hint">{{this.log}}</p>
-        {{/if}}
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-          (this should not appear)
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <div class="success">Still standing — async errors are NOT caught by
+        try block.</div>
+      {{#if this.log}}
+        <p class="hint">{{this.log}}</p>
+      {{/if}}
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+        (this should not appear)
+      </div>
+    {{/try}}
   </template>
 }

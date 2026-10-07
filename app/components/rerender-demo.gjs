@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { ErrorBoundary } from '@ember/component';
 import MaybeThrows from './maybe-throws';
 
 export default class RerenderDemo extends Component {
@@ -21,16 +20,13 @@ export default class RerenderDemo extends Component {
       </button>
     </div>
 
-    <ErrorBoundary>
-      <:try>
-        <MaybeThrows @shouldThrow={{this.shouldThrow}} />
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught on rerender!</strong>
-          {{err.message}}
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <MaybeThrows @shouldThrow={{this.shouldThrow}} />
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught on rerender!</strong>
+        {{err.message}}
+      </div>
+    {{/try}}
   </template>
 }

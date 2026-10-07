@@ -3,7 +3,7 @@ import { extensions, classicEmberSupport, ember } from '@embroider/vite';
 import { babel } from '@rollup/plugin-babel';
 
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/ember-error-boundary-demo/' : '/',
+  base: mode === 'production' ? '/ember-error-boundary-demo/keyword/' : '/',
   plugins: [
     classicEmberSupport(),
     ember(),

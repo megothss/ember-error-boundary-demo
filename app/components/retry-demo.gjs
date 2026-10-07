@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { ErrorBoundary } from '@ember/component';
 import Counter from './counter';
 
 // A plain object, deliberately not tracked: the boundary cannot see it change.
@@ -102,38 +101,35 @@ export default class RetryDemo extends Component {
       </button>
     </div>
 
-    <ErrorBoundary>
-      <:try>
-        <Fragile
-          @shouldThrow={{this.shouldThrow}}
-          @requestId={{this.requestId}}
-        />
-        <Counter />
-      </:try>
-      <:catch as |err retry|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-          <br />
-          {{#if this.shouldThrow}}
-            <span class="hint status-bad">The render read shouldThrow before it
-              threw. Click "Fix state" and the boundary retries on its own.</span>
-          {{else if this.serviceDown}}
-            <span class="hint status-bad">The outage lives in untracked state.
-              Retry will re-catch until it ends.</span>
-          {{else}}
-            <span class="hint status-ok">The outage is over, but the boundary
-              can't know: that state isn't tracked. Click Retry.</span>
-          {{/if}}
-          <br />
-          <button
-            class="retry-btn"
-            type="button"
-            data-test-retry
-            {{on "click" retry}}
-          >Retry</button>
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <Fragile
+        @shouldThrow={{this.shouldThrow}}
+        @requestId={{this.requestId}}
+      />
+      <Counter />
+    {{catch as |err retry|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+        <br />
+        {{#if this.shouldThrow}}
+          <span class="hint status-bad">The render read shouldThrow before it
+            threw. Click "Fix state" and the boundary retries on its own.</span>
+        {{else if this.serviceDown}}
+          <span class="hint status-bad">The outage lives in untracked state.
+            Retry will re-catch until it ends.</span>
+        {{else}}
+          <span class="hint status-ok">The outage is over, but the boundary
+            can't know: that state isn't tracked. Click Retry.</span>
+        {{/if}}
+        <br />
+        <button
+          class="retry-btn"
+          type="button"
+          data-test-retry
+          {{on "click" retry}}
+        >Retry</button>
+      </div>
+    {{/try}}
   </template>
 }

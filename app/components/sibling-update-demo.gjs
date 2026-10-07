@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { ErrorBoundary } from '@ember/component';
 import Counter from './counter';
 
 export default class SiblingUpdateDemo extends Component {
@@ -16,26 +15,23 @@ export default class SiblingUpdateDemo extends Component {
 
   <template>
     <p class="hint">
-      An ErrorBoundary followed by sibling content with tracked state. Clicking
+      A try block followed by sibling content with tracked state. Clicking
       the button triggers a tracked update on the sibling — without the
       block-stack fix this crashes with
       <code>Cannot read properties of null (reading 'nextSibling')</code>.
     </p>
 
-    <ErrorBoundary>
-      <:try>
-        <div class="success">ErrorBoundary content — no error here.</div>
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          {{err.message}}
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <div class="success">Try block content, no error here.</div>
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        {{err.message}}
+      </div>
+    {{/try}}
 
     <div class="sibling-after">
-      <h4>Sibling after ErrorBoundary</h4>
+      <h4>Sibling after the try block</h4>
       <p>{{this.label}}</p>
       <div class="controls">
         <button class="fix-btn" type="button" {{on "click" this.changeLabel}}>

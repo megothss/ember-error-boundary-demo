@@ -4,18 +4,15 @@ import SourceViewer from 'error-boundary-demo/components/source-viewer';
 
 import fullSource from 'error-boundary-demo/components/retry-demo.gjs?raw';
 
-const SNIPPET = `<ErrorBoundary>
-  <:try>
-    <Fragile @shouldThrow={{this.shouldThrow}} @requestId={{this.requestId}} />
-    <Counter />
-  </:try>
-  <:catch as |err retry|>
-    <div class="error-box">
-      <strong>Caught!</strong> {{err.message}}
-      <button class="retry-btn" {{on "click" retry}}>Retry</button>
-    </div>
-  </:catch>
-</ErrorBoundary>`;
+const SNIPPET = `{{#try}}
+  <Fragile @shouldThrow={{this.shouldThrow}} @requestId={{this.requestId}} />
+  <Counter />
+{{catch as |err retry|}}
+  <div class="error-box">
+    <strong>Caught!</strong> {{err.message}}
+    <button class="retry-btn" {{on "click" retry}}>Retry</button>
+  </div>
+{{/try}}`;
 
 <template>
   <DemoSection

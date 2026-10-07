@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { ErrorBoundary } from '@ember/component';
 
 let attempts = 0;
 
@@ -76,21 +75,18 @@ export default class FineGrainedRetryDemo extends Component {
       </button>
     </div>
 
-    <ErrorBoundary>
-      <:try>
-        <Widget @version={{this.version}} @broken={{this.broken}} />
-      </:try>
-      <:catch as |err|>
-        <div class="error-box">
-          <strong>Caught!</strong>
-          <span data-test-error-message>{{err.message}}</span>
-          <br />
-          <span class="hint">Unrelated state:
-            <strong data-test-unrelated-in-fallback>{{this.unrelated}}</strong>.
-            Changing it updates this fallback but never retries, because the
-            failed render didn't read it. Watch the attempt number.</span>
-        </div>
-      </:catch>
-    </ErrorBoundary>
+    {{#try}}
+      <Widget @version={{this.version}} @broken={{this.broken}} />
+    {{catch as |err|}}
+      <div class="error-box">
+        <strong>Caught!</strong>
+        <span data-test-error-message>{{err.message}}</span>
+        <br />
+        <span class="hint">Unrelated state:
+          <strong data-test-unrelated-in-fallback>{{this.unrelated}}</strong>.
+          Changing it updates this fallback but never retries, because the
+          failed render didn't read it. Watch the attempt number.</span>
+      </div>
+    {{/try}}
   </template>
 }

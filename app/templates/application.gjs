@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
+import { COMPONENT_DEMO_URL } from 'error-boundary-demo/variant';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { ErrorBoundary } from '@ember/component';
 import { LinkTo } from '@ember/routing';
 import { VERSION } from '@ember/version';
 
@@ -20,6 +20,8 @@ const DEMOS = [
   { num: '12', label: 'Sibling Update', route: 'sibling-update' },
   { num: '13', label: 'In-Element Portal', route: 'in-element-portal' },
   { num: '14', label: 'Fine-grained Retry', route: 'fine-grained-retry' },
+  { num: '15', label: 'Fallback Errors', route: 'fallback-errors' },
+  { num: '16', label: 'Lifecycle Cleanup', route: 'lifecycle-cleanup' },
 ];
 
 class App extends Component {
@@ -39,11 +41,12 @@ class App extends Component {
       <header class="app-header">
         <div class="header-left">
           <LinkTo @route="index" class="header-title-link">
-            <h1>ErrorBoundary Demo</h1>
+            <h1>\{{#try}} Demo</h1>
           </LinkTo>
           <span class="subtitle">ember-source {{VERSION}}</span>
         </div>
         <div class="header-right">
+          <a class="header-link" href={{COMPONENT_DEMO_URL}}>Component version</a>
           <a
             class="header-link"
             href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md"
@@ -77,21 +80,18 @@ class App extends Component {
       </nav>
 
       <main class="content-area">
-        <ErrorBoundary>
-          <:try>
-            {{outlet}}
-          </:try>
-          <:catch as |err|>
-            <div class="error-box">
-              <strong>Route error caught!</strong>
-              {{err.message}}
-              <br />
-              <span class="hint">Click a sidebar item to navigate away. The
-                failed render read the route state, so the boundary retries when
-                it changes.</span>
-            </div>
-          </:catch>
-        </ErrorBoundary>
+        {{#try}}
+          {{outlet}}
+        {{catch as |err|}}
+          <div class="error-box">
+            <strong>Route error caught!</strong>
+            {{err.message}}
+            <br />
+            <span class="hint">Click a sidebar item to navigate away. The
+              failed render read the route state, so the boundary retries when
+              it changes.</span>
+          </div>
+        {{/try}}
       </main>
     </div>
   </template>

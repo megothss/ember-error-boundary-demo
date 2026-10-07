@@ -23,5 +23,7 @@ Router.map(function () {
   this.route('sibling-update');
   this.route('in-element-portal');
   this.route('fine-grained-retry');
+  this.route('fallback-errors');
+  this.route('lifecycle-cleanup');
   this.route('not-found', { path: '/*path' });
 });

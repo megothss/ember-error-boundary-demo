@@ -1,10 +1,11 @@
 name: CI
 
+# No lint job on this branch: the released Prettier and ember-template-lint
+# parsers do not understand the proposed `{{catch}}` syntax yet.
 on:
   push:
     branches:
-      - main
-      - master
+      - keyword
   pull_request: {}
 
 concurrency:
@@ -12,17 +13,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: "Lint"
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-      - uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-ember-fork
-      - name: Lint
-        run: pnpm lint
-
   test:
     name: "Test"
     runs-on: ubuntu-latest
@@ -31,5 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-ember-fork
+        with:
+          ref: try-keyword
       - name: Run Tests
         run: pnpm test

@@ -41,7 +41,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/ember-error-boundary-demo/';
+    ENV.rootURL = '/ember-error-boundary-demo/keyword/';
     ENV.locationType = 'hash';
   }
 

@@ -1,0 +1,21 @@
+name: Redeploy GitHub Pages
+
+# The Pages site is deployed from `main`, which builds both the component demo
+# and this keyword branch (only `main` may deploy to github-pages). A push here
+# asks `main`'s deploy workflow to rebuild the site with the new keyword build.
+on:
+  push:
+    branches: ['keyword']
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch the deploy on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref main
