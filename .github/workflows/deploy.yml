@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+# One Pages artifact holds both variants of the demo: the `<ErrorBoundary>`
+# component version from `main` at the site root, and the `{{#try}}` keyword
+# version from the `keyword` branch under `keyword/`. Only `main` may deploy to
+# the github-pages environment, so a push to `keyword` dispatches this workflow
+# on `main` instead (see the `keyword` branch's redeploy workflow).
 on:
   push:
     branches: ['main']
@@ -21,13 +26,36 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout demo app
+      - name: Check out the component demo
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      - uses: ./.github/actions/setup-ember-fork
+      - name: Check out the keyword demo
+        uses: actions/checkout@v4
+        with:
+          ref: keyword
+          path: keyword-app
 
-      - name: Build demo app
+      - name: Set up the component fork
+        uses: ./.github/actions/setup-ember-fork
+        with:
+          ref: error-boundaries
+
+      - name: Build the component demo
         run: pnpm run build
+
+      - name: Set up the keyword fork
+        uses: ./.github/actions/setup-ember-fork
+        with:
+          ref: try-keyword
+          app-dir: keyword-app
+
+      - name: Build the keyword demo into keyword/
+        working-directory: keyword-app
+        run: |
+          pnpm run build
+          cp -R dist ../dist/keyword
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

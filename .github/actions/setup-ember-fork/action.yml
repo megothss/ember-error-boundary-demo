@@ -1,9 +1,9 @@
 name: Set up ember-source fork
 description: >-
-  Builds the ErrorBoundary ember-source fork, points this app at the packed
-  tarball, and installs dependencies. The demo depends on ember-source via a
-  local path that only resolves on a developer machine, so CI has to build the
-  fork itself before it can install.
+  Builds an ember-source fork, points the app at the packed tarball, and
+  installs dependencies. The demo depends on ember-source via a local path that
+  only resolves on a developer machine, so CI has to build the fork itself
+  before it can install.
 
 inputs:
   ref:
@@ -14,6 +14,10 @@ inputs:
     description: Repository holding the ember-source fork.
     required: false
     default: megothss/ember.js
+  app-dir:
+    description: Directory of the app to point at the fork, relative to the workspace.
+    required: false
+    default: .
 
 runs:
   using: composite
@@ -23,10 +27,12 @@ runs:
       with:
         repository: ${{ inputs.repository }}
         ref: ${{ inputs.ref }}
-        path: ember-source-fork
+        path: ${{ inputs.app-dir }}/ember-source-fork
 
     - name: Install pnpm
       uses: pnpm/action-setup@v4
+      with:
+        package_json_file: ${{ inputs.app-dir }}/package.json
 
     - name: Set up Node
       uses: actions/setup-node@v4
@@ -35,6 +41,7 @@ runs:
 
     - name: Build and pack ember-source
       shell: bash
+      working-directory: ${{ inputs.app-dir }}
       run: |
         cd ember-source-fork
         pnpm install
@@ -45,6 +52,7 @@ runs:
 
     - name: Point the app at the packed ember-source
       shell: bash
+      working-directory: ${{ inputs.app-dir }}
       run: |
         node -e "
           const pkg = require('./package.json');
@@ -56,4 +64,5 @@ runs:
 
     - name: Install dependencies
       shell: bash
+      working-directory: ${{ inputs.app-dir }}
       run: pnpm install --no-frozen-lockfile

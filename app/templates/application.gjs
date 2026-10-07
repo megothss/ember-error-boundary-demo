@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { KEYWORD_DEMO_URL } from 'error-boundary-demo/variant';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { ErrorBoundary } from '@ember/component';
@@ -46,6 +47,7 @@ class App extends Component {
           <span class="subtitle">ember-source {{VERSION}}</span>
         </div>
         <div class="header-right">
+          <a class="header-link" href={{KEYWORD_DEMO_URL}}>Keyword version</a>
           <a
             class="header-link"
             href="https://github.com/megothss/rfcs/blob/error-boundary-rfc/text/0000-error-boundary.md"
