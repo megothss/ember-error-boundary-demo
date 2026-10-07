@@ -22,7 +22,7 @@ const SNIPPET = `{{! ErrorBoundary wrapping an in-element portal }}
 <template>
   <DemoSection
     @title="13. In-Element Portal"
-    @description="ErrorBoundary wrapping content rendered into a remote element via in-element. The boundary catches errors without leaking DOM into the portal target."
+    @description="ErrorBoundary wrapping content rendered into a remote element via in-element. The boundary catches errors without leaking DOM into the portal target, even when its fallback renders into that same target."
   >
     <InElementDemo />
   </DemoSection>

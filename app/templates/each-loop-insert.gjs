@@ -20,7 +20,7 @@ const SNIPPET = `<ErrorBoundary>
 <template>
   <DemoSection
     @title="6. Each Loop Insert Error"
-    @description="An each loop inside an ErrorBoundary. Click to add a bad item that throws during render, then reset the items to recover."
+    @description="An each loop inside an ErrorBoundary. Click to add a bad item that throws during render, then reset the items to recover. Below, each row has its own boundary: a bad row inserted, prepended or reordered fails alone."
   >
     <EachInsertDemo />
   </DemoSection>

@@ -8,6 +8,7 @@ import MaybeThrows from './maybe-throws';
 export default class InElementDemo extends Component {
   @tracked shouldThrowDefault = false;
   @tracked shouldThrowAppend = false;
+  @tracked shouldThrowShared = false;
 
   triggerDefaultError = () => (this.shouldThrowDefault = true);
   triggerAppendError = () => (this.shouldThrowAppend = true);
@@ -16,6 +17,13 @@ export default class InElementDemo extends Component {
   // retries on its own when it changes.
   resetDefault = () => (this.shouldThrowDefault = false);
   resetAppend = () => (this.shouldThrowAppend = false);
+
+  triggerSharedError = () => (this.shouldThrowShared = true);
+  resetShared = () => (this.shouldThrowShared = false);
+
+  get sharedTarget() {
+    return document.getElementById('portal-shared');
+  }
 
   get defaultTarget1() {
     return document.getElementById('portal-default-1');
@@ -193,6 +201,70 @@ export default class InElementDemo extends Component {
                   </button>
                 </div>
               </div>
+            </:catch>
+          </ErrorBoundary>
+        </div>
+      </div>
+    </div>
+
+    <div class="in-element-section">
+      <h4>Fallback in the same portal</h4>
+      <p class="hint">
+        Here the catch block also renders into the portal. The failed attempt's
+        portal content is removed before the fallback renders, so the portal
+        shows the pre-existing content and the fallback, never a mix of both.
+      </p>
+      <div class="controls">
+        <button
+          class="trigger-btn"
+          disabled={{this.shouldThrowShared}}
+          type="button"
+          data-test-trigger-shared
+          {{on "click" this.triggerSharedError}}
+        >
+          Trigger error
+        </button>
+        <button
+          class="fix-btn"
+          disabled={{if this.shouldThrowShared false true}}
+          type="button"
+          data-test-reset-shared
+          {{on "click" this.resetShared}}
+        >
+          Reset
+        </button>
+      </div>
+      <div class="in-element-layout">
+        <div
+          id="portal-shared"
+          class="in-element-target"
+          data-test-portal-shared
+        >
+          <span class="label">Remote portal</span>
+          <div class="existing-content">Pre-existing content that was already in
+            the portal before in-element rendered into it.</div>
+        </div>
+        <div class="in-element-source">
+          <span class="label">Boundary (source)</span>
+          <ErrorBoundary>
+            <:try>
+              {{#in-element this.sharedTarget insertBefore=null}}
+                <div class="success" data-test-shared-body>Body content in the
+                  portal</div>
+                <MaybeThrows
+                  @shouldThrow={{this.shouldThrowShared}}
+                  @successMessage="The body rendered into the portal"
+                />
+              {{/in-element}}
+            </:try>
+            <:catch as |err|>
+              {{#in-element this.sharedTarget insertBefore=null}}
+                <div class="error-box" data-test-shared-fallback>
+                  <strong>Fallback in the portal:</strong>
+                  {{err.message}}
+                </div>
+              {{/in-element}}
+              <span class="hint">The fallback is in the portal.</span>
             </:catch>
           </ErrorBoundary>
         </div>

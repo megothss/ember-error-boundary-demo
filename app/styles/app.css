@@ -783,3 +783,33 @@ h4.sub {
   color: var(--accent-hover);
   text-decoration: underline;
 }
+
+/* Per-row boundaries */
+.rows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.row-chip {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Lifecycle counters */
+.lifecycle-counts {
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.lifecycle-counts th,
+.lifecycle-counts td {
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.75rem;
+  text-align: left;
+}
+
+.lifecycle-counts td {
+  font-variant-numeric: tabular-nums;
+}

@@ -20,6 +20,8 @@ const DEMOS = [
   { num: '12', label: 'Sibling Update', route: 'sibling-update' },
   { num: '13', label: 'In-Element Portal', route: 'in-element-portal' },
   { num: '14', label: 'Fine-grained Retry', route: 'fine-grained-retry' },
+  { num: '15', label: 'Fallback Errors', route: 'fallback-errors' },
+  { num: '16', label: 'Lifecycle Cleanup', route: 'lifecycle-cleanup' },
 ];
 
 class App extends Component {
